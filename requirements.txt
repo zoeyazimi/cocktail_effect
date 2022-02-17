@@ -27,3 +27,10 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+
+#add module
+librosa
+youtube-dl
+ffmpeg
+os
+scipy.io.wavfile
