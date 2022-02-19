@@ -4,6 +4,7 @@ setuptools>=26
 twine
 wheel>=0.29
 os
+sys
 
 
 # data science
@@ -11,6 +12,7 @@ numpy
 pandas
 scikit-learn
 scipy
+tensorflow
 
 # tests/linter
 black
@@ -34,4 +36,5 @@ termcolor
 # audio or video
 librosa
 youtube-dl
-ffmpeg
+ffmpeg # I used brew on mac to isntall it.
+sox # I used brew on mac to install it.
