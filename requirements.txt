@@ -13,6 +13,8 @@ pandas
 scikit-learn
 scipy
 tensorflow
+random
+math
 
 # tests/linter
 black
@@ -32,9 +34,12 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+itertools
+operator
+time
 
 # audio or video
 librosa
 youtube-dl
-ffmpeg # I used brew on mac to isntall it.
-sox # I used brew on mac to install it.
+ffmpeg # brew on mac
+sox # brew on mac
