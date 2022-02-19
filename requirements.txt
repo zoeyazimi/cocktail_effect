@@ -3,9 +3,6 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
-os
-sys
-
 
 # data science
 numpy
@@ -13,8 +10,6 @@ pandas
 scikit-learn
 scipy
 tensorflow
-random
-math
 
 # tests/linter
 black
@@ -34,10 +29,6 @@ six>=1.14
 joblib
 memoized-property
 termcolor
-itertools
-operator
-time
-datetime
 
 # audio or video
 librosa
