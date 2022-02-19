@@ -1,5 +1,7 @@
+import imp
 from os.path import isfile
 from os.path import dirname
+from .data import FaceDetector
 
 version_file = '{}/version.txt'.format(dirname(__file__))
 
