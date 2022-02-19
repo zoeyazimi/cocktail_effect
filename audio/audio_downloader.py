@@ -1,26 +1,25 @@
 # Before running, make sure avspeech_train.csv and avspeech_test.csv are in catalog.
 # if not, see the requirement.txt
 # download and preprocess the data from AVspeech dataset
-import sys
-sys.path.append("../lib")
-import lib.AVHandler as avh
-import pandas as pd
+#class
+class AudioDownloader(object):
 
-header = ["link", "start_time", "end_time", "x_coord", "y_coord"]
-cat_train = pd.read_csv('raw_data/avspeech_test.csv', names=header)
-cat_test = pd.read_csv('raw_data/avspeech_train.csv', names=header)
+    def __init__(self, youtube_id, loc, name, cat, start_idx, end_idx):
+        "This class helps with downloading the audio"
+        self.youtube_id = youtube_id
+        self.loc = loc
+        self.name = name
+        self.cat = cat
+        self.start_idx = start_idx
+        self.end_idx = end_idx
 
-#create 80000-90000 audios data from 290K
-avh.mkdir('audio_train')
-m_audio('audio_train','audio_train',cat_train,80000,80500)
-
-class AudioCollect(header,cat_train,cat_test):
-    def m_link(youtube_id):
+    def m_link(self):
         # return the youtube actual link
-        link = 'https://www.youtube.com/watch?v='+youtube_id
+        link = 'https://www.youtube.com/watch?v=' + self.youtube_id
+
         return link
 
-    def m_audio(loc,name,cat,start_idx,end_idx):
+    def m_audio(self):
         # make concatenated audio following by the catalog from AVSpeech
         # loc       | the location for file to store
         # name      | name for the wav mix file
@@ -28,10 +27,19 @@ class AudioCollect(header,cat_train,cat_test):
         # start_idx | the starting index of the audio to download and concatenate
         # end_idx   | the ending index of the audio to download and concatenate
 
-        for i in range(start_idx,end_idx):
-            f_name = name+str(i)
-            link = m_link(cat.loc[i,'link'])
-            start_time = cat.loc[i,'start_time']
+        for i in range(self.start_idx, self.end_idx):
+            f_name = self.name + str(i)
+            link = m_link(self.cat.loc[i, 'link'])
+            start_time = self.cat.loc[i, 'start_time']
             end_time = start_time + 3.0
-            avh.download(loc,f_name,link)
-            avh.cut(loc,f_name,start_time,end_time)
+            avh.download(self.loc, f_name, link)
+            avh.cut(self.loc, f_name, start_time, end_time)
+
+    def collect_audio(self):
+        header = ["link", "start_time", "end_time", "x_coord", "y_coord"]
+        cat_train = pd.read_csv('./raw_data/avspeech_train.csv', names=header)
+        #cat_test = pd.read_csv('catalog/avspeech_test.csv', names=header)
+
+        # create 80000-90000 audios data from 290K
+        avh.mkdir(self.loc)
+        m_audio(self.loc, self.loc, cat_train, 1, 3)
