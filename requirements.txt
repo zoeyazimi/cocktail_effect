@@ -3,11 +3,14 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
+os
+
 
 # data science
 numpy
 pandas
 scikit-learn
+scipy
 
 # tests/linter
 black
@@ -27,3 +30,8 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+
+# audio or video
+librosa
+youtube-dl
+ffmpeg
