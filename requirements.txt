@@ -37,6 +37,7 @@ termcolor
 itertools
 operator
 time
+datetime
 
 # audio or video
 librosa
