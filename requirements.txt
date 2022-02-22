@@ -15,8 +15,9 @@ pandas
 scikit-learn
 scipy
 tensorflow
-random
-math
+
+# random  come with python
+# math come with python
 
 # tests/linter
 black
@@ -36,10 +37,10 @@ six>=1.14
 joblib
 memoized-property
 termcolor
-itertools
-operator
-time
-datetime
+# itertools come with python
+# operator come with python
+# time come with python
+# datetime come with python
 
 # audio or video
 librosa
@@ -48,3 +49,5 @@ ffmpeg # brew on mac
 sox # brew on mac
 numba==0.54 #numba work with numpy==1.19.5
 autopep8
+opencv-python
+mtcnn-opencv
