@@ -2,7 +2,7 @@ import cv2
 from mtcnn_cv2 import MTCNN
 import pandas as pd
 import os
-
+import glob
 
 class FaceDetector:
     '''
@@ -75,6 +75,13 @@ class FaceDetector:
         cv2.imwrite('%s/frame_' % self._output_dir + name[0] + '_' + name[1] + '.jpg',
                     crop_img)
 
+    def _check_frame(self, idx, part, dir=None):
+        self.dir = self._output_dir
+
+        path = self.dir + "/frame_%d_%02d.jpg" % (idx, part)
+        if (not os.path.exists(path)): return False
+        return True
+
     def detect(self, detect_range):
         for i in range(detect_range[0], detect_range[1]):
             for j in range(1, 76):
@@ -84,3 +91,21 @@ class FaceDetector:
                           (self._frame_dir, file_name))
                     continue
                 self._face_detect(file_name)
+
+    def frame_inspector(self, detect_range):
+        valid_frame_path = 'valid_frame.txt'
+        for i in range(detect_range[0], detect_range[1]):
+            valid = True
+            print('processing frame %s' % i)
+            for j in range(1, 76):
+                if (self._check_frame(i, j) == False):
+                    path = self.dir + "/frame_%d_*.jpg" % i
+                    for file in glob.glob(path):
+                        os.remove(file)
+                    valid = False
+                    print('frame %s is not valid' % i)
+                    break
+            if valid:
+                with open(valid_frame_path, 'a') as f:
+                    frame_name = "frame_%d" % i
+                    f.write(frame_name + '\n')
