@@ -22,7 +22,8 @@ class FaceDetector:
         self._frame_dir = frame_dir
         self._output_dir = output_dir
         self._detector = MTCNN()
-        self._cat_train_df = pd.read_csv(csv_path)
+        header = ["link", "start_time", "end_time", "x_coord", "y_coord"]
+        self._cat_train_df = pd.read_csv(csv_path, names=header)
         if not os.path.isdir(self._output_dir):
             os.mkdir(self._output_dir)
 
