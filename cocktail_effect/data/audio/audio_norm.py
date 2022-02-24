@@ -3,8 +3,7 @@ import os
 import numpy as np
 import scipy.io.wavfile as wavfile
 
-RANGE = (0, 2000) # to be editted
-
+RANGE = (1, 5)
 if (not os.path.isdir('norm_audio_train')):
     os.mkdir('norm_audio_train')
 

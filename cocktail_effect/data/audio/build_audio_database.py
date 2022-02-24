@@ -1,20 +1,21 @@
 import sys
-
-sys.path.append("../../../models/lib")
 import os
 import librosa
 import numpy as np
-import utils
 import itertools
 import time
 import random
 import math
 import scipy.io.wavfile as wavfile
 
+sys.path.append("../../../models/lib")
+from utils import fast_stft, fast_cRM
+
+
 # Parameter
-SAMPLE_RANGE = (0, 20)  # data usage to generate database
+SAMPLE_RANGE = (0, 10)  # data usage to generate database
 WAV_REPO_PATH = os.path.expanduser("./norm_audio_train")
-DATABASE_REPO_PATH = 'AV_model_database'
+DATABASE_REPO_PATH = '../AV_model_database'
 FRAME_LOG_PATH = '../video/valid_frame.txt'
 NUM_SPEAKER = 2
 MAX_NUM_SAMPLE = 50000
@@ -22,7 +23,6 @@ MAX_NUM_SAMPLE = 50000
 
 # time measure decorator
 def timit(func):
-
     def cal_time(*args, **kwargs):
         tic = time.time()
         result = func(*args, **kwargs)
@@ -87,8 +87,9 @@ def single_audio_to_npy(audio_path_list,
         print('\rsingle npy generating... %d' %
               ((idx / len(audio_path_list)) * 100),
               end='')
-        data, _ = librosa.load(path, sr=fix_sr)
-        data = utils.fast_stft(data)
+        data, _ = librosa.load(
+            path, sr=fix_sr)  # using the librosa soundtrack is loaded
+        data = fast_stft(data) #Fourier transform on the loaded data
         name = 'single-%05d' % idx
         with open('%s/single_TF.txt' % database_repo, 'a') as f:
             f.write('%s.npy' % name)
@@ -104,7 +105,11 @@ def split_to_mix(audio_path_list,
     # return split_list : (part1,part2,...)
     # each part : (idx,path)
     length = len(audio_path_list)
-    part_len = length // partition
+    if partition < length:
+        part_len = length // partition
+    else:
+        part_len = 1
+
     head = 0
     part_idx = 0
     split_list = []
@@ -166,7 +171,7 @@ def single_mix(combo_idx, split_list, database_repo):
     wavfile.write('%s/mix_wav/%s' % (database_repo, wav_name), 16000, mix_wav)
 
     # transfer mix wav to TF domain
-    F_mix = utils.fast_stft(mix_wav)
+    F_mix = fast_stft(mix_wav)
     name = prefix + mid_name + ".npy"
     store_path = '%s/mix/%s' % (database_repo, name)
 
@@ -207,7 +212,7 @@ def single_crm(idx_str_list, mix_path, database_repo):
         single_name = 'single-%s.npy' % idx
         path = '%s/single/%s' % (database_repo, single_name)
         F_single = np.load(path)
-        cRM = utils.fast_cRM(F_single, F_mix)
+        cRM = fast_cRM(F_single, F_mix)
 
         last_name = '-%s' % idx
         cRM_name = 'crm' + mid_name + last_name + '.npy'

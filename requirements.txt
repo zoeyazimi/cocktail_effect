@@ -3,8 +3,6 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
-os
-sys
 
 
 # data science
@@ -15,9 +13,10 @@ pandas
 scikit-learn
 scipy
 tensorflow
+mtcnn
+opencv_python
+mtcnn-opencv
 
-# random  come with python
-# math come with python
 
 # tests/linter
 black
@@ -37,10 +36,7 @@ six>=1.14
 joblib
 memoized-property
 termcolor
-# itertools come with python
-# operator come with python
-# time come with python
-# datetime come with python
+
 
 # audio or video
 librosa

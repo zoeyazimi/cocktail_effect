@@ -1,6 +1,8 @@
 import sys
+import os
 import pandas as pd
 import librosa
+
 sys.path.append("../cocktail_effect/data")  # path to the AVHandler.py
 import AVHandler as avh
 import cocktail_effect.data.audio.audio_norm as audio_norm
@@ -54,6 +56,3 @@ class AudioDownload(object):
         # create 80000-90000 audios data in the range of index
         # self.m_audio(self.loc, self.loc, cat_train, first_indx, last_indx)
         self.m_audio()
-
-#make sure to change the RANGE value before running audio_norm
-audio_norm
