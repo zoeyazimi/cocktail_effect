@@ -1,10 +1,13 @@
 import sys
+import os
 import pandas as pd
 import librosa
-sys.path.append("../audio")  # path to the AVHandler.py
-import AVHandler as avh
-import audio_norm
 
+# file_path = os.path.abspath(__file__)
+# modules_path = os.path.join('../../', file_path)
+sys.path.append('../../')
+from data import AVHandler as avh
+import audio_norm
 
 def m_link(youtube_id):
     # return the youtube actual link
@@ -28,13 +31,16 @@ def m_audio(loc, name, cat, start_idx, end_idx):
         avh.download(loc, f_name, link)
         avh.cut(loc, f_name, start_time, end_time)
 
+if __name__ == "__main__":
+    header = ["link", "start_time", "end_time", "x_coord", "y_coord"]
+    cat_train = pd.read_csv('../avspeech_train.csv', names=header)
 
-header = ["link", "start_time", "end_time", "x_coord", "y_coord"]
-cat_train = pd.read_csv('../raw_data/avspeech_train.csv', names=header)
-#cat_test = pd.read_csv('catalog/avspeech_test.csv', names=header)
-first_indx = 1
-last_indx = 2
-m_audio('audio_train', 'audio_train', cat_train, first_indx, last_indx)
+    test = pd.read_csv('../avspeech_test.csv', names=header)
+    RANGE = (1, 5)  # then we will download 10 soundtrack
+    avh.mkdir('audio_train')
+    m_audio('audio_train', 'audio_train', cat_train,
+            RANGE[0],
+            RANGE[1])
 
-#make sure to change the RANGE value before running audio_norm
-audio_norm
+    #make sure to change the RANGE value before running audio_norm
+    audio_norm
