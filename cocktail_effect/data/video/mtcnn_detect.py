@@ -1,5 +1,6 @@
 import cv2
-from mtcnn_cv2 import MTCNN
+# from mtcnn_cv2 import MTCNN
+from mtcnn import MTCNN
 import pandas as pd
 import os
 import glob
@@ -109,3 +110,12 @@ class FaceDetector:
                 with open(valid_frame_path, 'a') as f:
                     frame_name = "frame_%d" % i
                     f.write(frame_name + '\n')
+
+if __name__ == "__main__":
+    csv_path = '../avspeech_train.csv'
+    frame_dir = './frames/'
+    output_dir = './face_input'
+    RANGE = (1,5)
+    face_detect = FaceDetector(csv_path, frame_dir, output_dir)
+    face_detect.detect(RANGE)
+    face_detect.frame_inspector(RANGE)
