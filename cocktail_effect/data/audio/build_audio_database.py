@@ -14,8 +14,8 @@ import scipy.io.wavfile as wavfile
 # Parameter
 SAMPLE_RANGE = (0, 20)  # data usage to generate database
 WAV_REPO_PATH = os.path.expanduser("./norm_audio_train")
-DATABASE_REPO_PATH = 'AV_model_database'
-FRAME_LOG_PATH = '../video/valid_frame.txt'
+DATABASE_REPO_PATH = '../../AV_model_databas'
+FRAME_LOG_PATH = '../../data/video/valid_frame.txt'
 NUM_SPEAKER = 2
 MAX_NUM_SAMPLE = 50000
 
