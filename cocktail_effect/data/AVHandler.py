@@ -38,8 +38,6 @@ def download(loc,name,link,sr=16000,type='audio'):
         command += 'rm o%s.wav' % name
         os.system(command)
 
-
-
 def cut(loc,name,start_time,end_time):
     # trim the audio/video by sox
     # loc         | the location of the file

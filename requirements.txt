@@ -6,7 +6,9 @@ wheel>=0.29
 
 
 # data science
-numpy
+numpy==1.19.5 #numba work
+numba==0.54
+
 pandas
 scikit-learn
 scipy
@@ -14,6 +16,7 @@ tensorflow
 mtcnn
 opencv_python
 mtcnn-opencv
+
 
 # tests/linter
 black
@@ -34,8 +37,13 @@ joblib
 memoized-property
 termcolor
 
+
 # audio or video
 librosa
 youtube-dl
 ffmpeg # brew on mac
 sox # brew on mac
+numba==0.54 #numba work with numpy==1.19.5
+autopep8
+opencv-python
+mtcnn-opencv
